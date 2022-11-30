@@ -116,6 +116,20 @@ const Grid = (props) => {
                     return;
                 }
             }
+            
+            if((player1boxes.length + player2boxes.length) >= 9)
+            {
+                setFilledBoxes((prevData) => {
+                    return [];
+                });
+                setNextClickValue((prevData) => {
+                    return "player1";
+                });
+                alert('TIE');
+                return;
+            }
+
+
             if(checkClick === 'player2')
             {
                 let filledBoxesOrders = filledBoxes.map((data) => { return parseInt(data.order);  });
