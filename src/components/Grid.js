@@ -81,7 +81,7 @@ const Grid = (props) => {
                     setNextClickValue((prevData) => {
                         return "player1";
                     });
-                    console.log('USER WIN');
+                    alert('YOU WIN');
                     return;
                 }
             }
@@ -112,7 +112,7 @@ const Grid = (props) => {
                     setNextClickValue((prevData) => {
                         return "player1";
                     });
-                    console.log('BOT WIN');
+                    alert('BOT WIN');
                     return;
                 }
             }
