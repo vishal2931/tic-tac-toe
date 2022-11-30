@@ -138,7 +138,7 @@ const Grid = (props) => {
 
 	return (
 		<div className="bg-slate-900">
-			<div className="mx-auto w-2/4 h-screen flex items-center">
+			<div className="mx-auto md:w-2/4 h-screen flex items-center w-11/12">
 				<div className="grid grid-cols-3 w-full">
 					{boxes.map((value) => (
 						<Boxes
