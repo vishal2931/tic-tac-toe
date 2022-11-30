@@ -24,22 +24,28 @@ const Grid = (props) => {
 	const [checkClick, setNextClickValue] = useState("player1");
 
 	const getBoxValueHandler = (boxValue) => {
-		let clickedPlayer = getClickedPlayer(checkClick);
-		if (checkClick === "player1") {
-			setNextClickValue((prevData) => {
-				return "player2";
-			});
-		} else {
-			setNextClickValue((prevData) => {
-				return "player1";
-			});
-		}
-		setFilledBoxes((prevData) => {
-			return [
-				{ order: boxValue.order, value: clickedPlayer },
-				...prevData,
-			];
-		});
+        let filledBoxesOrders = filledBoxes.map((data) => { return parseInt(data.order);  });
+        
+        if(!filledBoxesOrders.includes(parseInt(boxValue.order)))
+        {
+            let clickedPlayer = getClickedPlayer(checkClick);
+            if (checkClick === "player1") {
+                setNextClickValue((prevData) => {
+                    return "player2";
+                });
+            } else {
+                setNextClickValue((prevData) => {
+                    return "player1";
+                });
+            }
+            setFilledBoxes((prevData) => {
+                return [
+                    { order: parseInt(boxValue.order), value: clickedPlayer },
+                    ...prevData,
+                ];
+            });
+        }
+
 	};
 
 	useEffect(() => executeBotMove(), [filledBoxes]);
