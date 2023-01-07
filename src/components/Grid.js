@@ -140,20 +140,50 @@ const Grid = (props) => {
                 let filledBoxesOrders = filledBoxes.map((data) => { return parseInt(data.order);  });
                 let emptyBoxes = boxes.filter(value => !filledBoxesOrders.includes(value.order));
                 var emptyBox = emptyBoxes[Math.floor(Math.random()*emptyBoxes.length)];
-
+                
                 if(player1boxes.length > 1)
                 {
                     possibilities.forEach(element => {
                         
+                        let temp = [];
+                        
+                        element.forEach(elementValue => {
+                            
+                            if(!player1boxes.includes(elementValue) && !filledBoxesOrders.includes(elementValue))
+                            {
+                                temp.push(elementValue);
+                            }
+                            
+                        });
+
+                        if(temp.length == 1)
+                        {
+                            let temp2 = [];
+                            element.forEach(elementValue => {
+
+                                if(player1boxes.includes(elementValue) && !temp2.includes(elementValue))
+                                {
+                                    temp2.push(elementValue);
+                                }
+                            });
+
+                            if(temp2.length != 2)
+                            {
+                                temp = [];
+                            }
+                       
+                            if(temp.length == 1)
+                            {
+                                emptyBox.id = 'box-'+temp[0];
+                                emptyBox.order = temp[0];
+                                return true;
+                            }
+                        }
                         
 
                     });
                 }
 
-                console.log(player1boxes);
-                console.log(filledBoxesOrders);
-                console.log(emptyBoxes);
-                console.log(emptyBox);
 
                 setTimeout(() => {
                     setNextClickValue((prevData) => { return "player1"; });
