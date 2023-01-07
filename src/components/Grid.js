@@ -56,7 +56,6 @@ const Grid = (props) => {
 
 	const executeBotMove = (dataProps) => {
         
-
         if(filledBoxes.length > 0)
         {
             let player1boxes = filledBoxes.filter(value => value.value === player1).map((data) => { return parseInt(data.order);  });
@@ -141,6 +140,21 @@ const Grid = (props) => {
                 let filledBoxesOrders = filledBoxes.map((data) => { return parseInt(data.order);  });
                 let emptyBoxes = boxes.filter(value => !filledBoxesOrders.includes(value.order));
                 var emptyBox = emptyBoxes[Math.floor(Math.random()*emptyBoxes.length)];
+
+                if(player1boxes.length > 1)
+                {
+                    possibilities.forEach(element => {
+                        
+                        
+
+                    });
+                }
+
+                console.log(player1boxes);
+                console.log(filledBoxesOrders);
+                console.log(emptyBoxes);
+                console.log(emptyBox);
+
                 setTimeout(() => {
                     setNextClickValue((prevData) => { return "player1"; });
                     setFilledBoxes((prevData) => {
