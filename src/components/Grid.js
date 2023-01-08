@@ -22,6 +22,7 @@ const Grid = (props) => {
 
 	const [filledBoxes, setFilledBoxes] = useState([]);
 	const [checkClick, setNextClickValue] = useState("player1");
+    const chooseSign = useState('');
 
 	const getBoxValueHandler = (boxValue) => {
         let filledBoxesOrders = filledBoxes.map((data) => { return parseInt(data.order);  });
@@ -141,7 +142,49 @@ const Grid = (props) => {
                 let emptyBoxes = boxes.filter(value => !filledBoxesOrders.includes(value.order));
                 var emptyBox = emptyBoxes[Math.floor(Math.random()*emptyBoxes.length)];
                 
-                if(player1boxes.length > 1)
+                /* if(player2boxes.length > 1)
+                {
+                    possibilities.forEach(element => {
+                        
+                        let temp = [];
+                        
+                        element.forEach(elementValue => {
+                            
+                            if(!player2boxes.includes(elementValue) && !filledBoxesOrders.includes(elementValue))
+                            {
+                                temp.push(elementValue);
+                            }
+                            
+                        });
+
+                        if(temp.length == 1)
+                        {
+                            let temp2 = [];
+                            element.forEach(elementValue => {
+
+                                if(player2boxes.includes(elementValue) && !temp2.includes(elementValue))
+                                {
+                                    temp2.push(elementValue);
+                                }
+                            });
+
+                            if(temp2.length != 2)
+                            {
+                                temp = [];
+                            }
+                       
+                            if(temp.length == 1)
+                            {
+                                emptyBox.id = 'box-'+temp[0];
+                                emptyBox.order = temp[0];
+                                return true;
+                            }
+                        }
+                        
+
+                    });
+                }
+                else */ if(player1boxes.length > 1)
                 {
                     possibilities.forEach(element => {
                         
@@ -201,19 +244,24 @@ const Grid = (props) => {
 	};
 
 	return (
-		<div className="bg-slate-900">
-			<div className="mx-auto md:w-2/4 h-screen flex items-center w-11/12">
-				<div className="grid grid-cols-3 w-full">
-					{boxes.map((value) => (
-						<Boxes
-							className=""
-							filledBoxes={filledBoxes}
-							key={value.id}
-							order={value.order}
-							boxValueHandler={getBoxValueHandler}
-						/>
-					))}
-				</div>
+		<div className="bg-emerald-600">
+			<div className="h-screen">
+                <div className="title">
+                    <h2 className="text-white text-center text-4xl py-12">Tic Tac Toe</h2>
+                </div>
+                <div className="mx-auto md:w-3/4 lg:w-2/5 w-11/12">
+                    <div className="grid grid-cols-3 w-full">
+                        {boxes.map((value) => (
+                            <Boxes
+                                className=""
+                                filledBoxes={filledBoxes}
+                                key={value.id}
+                                order={value.order}
+                                boxValueHandler={getBoxValueHandler}
+                            />
+                        ))}
+                    </div>
+                </div>
 			</div>
 		</div>
 	);

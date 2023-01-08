@@ -14,7 +14,7 @@ const Boxes = (props) => {
         boxValue = boxValueData[0].value;
     }
 
-	const classes = "text-9xl flex justify-center items-center h-44 border-white border-4 text-white cursor-pointer " + props.className;
+	const classes = "text-9xl flex justify-center items-center h-32 md:h-44 lg:h-52 border-white border-4 text-white cursor-pointer " + props.className;
 	return (
 		<div
 			className={classes}
