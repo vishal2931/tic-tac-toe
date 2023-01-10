@@ -3,8 +3,10 @@ import Boxes from "./Boxes";
 
 const Grid = (props) => {
 	let boxes = [];
-	const player1 = "O"; // User
-	const player2 = "X"; // Bot
+    const [player1,setGamePlayer1] = useState('O');
+    const [player2,setGamePlayer2] = useState('X');
+	/* let player1 = "O"; // User
+	let player2 = "X"; // Bot */
     const possibilities = [
         [1,2,3],
         [1,4,7],
@@ -22,11 +24,10 @@ const Grid = (props) => {
 
 	const [filledBoxes, setFilledBoxes] = useState([]);
 	const [checkClick, setNextClickValue] = useState("player1");
-    const chooseSign = useState('');
-
+    const [gameStart,setGameStartStatus] = useState(false);
+    
 	const getBoxValueHandler = (boxValue) => {
         let filledBoxesOrders = filledBoxes.map((data) => { return parseInt(data.order);  });
-        
         if(!filledBoxesOrders.includes(parseInt(boxValue.order)))
         {
             let clickedPlayer = getClickedPlayer(checkClick);
@@ -88,6 +89,8 @@ const Grid = (props) => {
                         return "player1";
                     });
                     alert('YOU WIN');
+                    setGameStartStatus(false);
+                    
                     return;
                 }
             }
@@ -119,6 +122,8 @@ const Grid = (props) => {
                         return "player1";
                     });
                     alert('BOT WIN');
+                    setGameStartStatus(false);
+                    
                     return;
                 }
             }
@@ -132,6 +137,8 @@ const Grid = (props) => {
                     return "player1";
                 });
                 alert('TIE');
+                setGameStartStatus(false);
+                
                 return;
             }
 
@@ -243,13 +250,43 @@ const Grid = (props) => {
 
 	};
 
+    const gameStartHandler = (playerSign) => {
+        if(playerSign == 'O')
+        {
+            setGamePlayer1('O');
+            setGamePlayer2('X');
+        }
+        else
+        {
+            setGamePlayer1('X');
+            setGamePlayer2('O');
+        }
+        setGameStartStatus(true);
+    }
+
+
 	return (
-		<div className="bg-emerald-600">
+		<div className="bg-cyan-700">
 			<div className="h-screen">
                 <div className="title">
-                    <h2 className="text-white text-center text-4xl py-12">Tic Tac Toe</h2>
+                    <h2 className="text-white text-center text-4xl py-5 font-semibold">Tic Tac Toe</h2>
                 </div>
-                <div className="mx-auto md:w-3/4 lg:w-2/5 w-11/12">
+                {!gameStart && (<div className="mx-auto md:w-3/4 lg:w-1/5 w-11/12">
+                    <h2 className="text-lg font-semibold text-white text-center mb-4">Choose Your Weapon</h2>
+                    <div className="grid grid-cols-2 w-full">
+                        <div 
+                            className="h-36 border-4 m-2 cursor-pointer text-7xl md:text-9xl text-white text-center flex justify-center items-center" 
+                            onClick={() => gameStartHandler(player1)}>
+                            {player1}
+                        </div>
+                        <div 
+                            className="h-36 border-4 m-2 cursor-pointer text-7xl md:text-9xl text-white text-center flex justify-center items-center" 
+                            onClick={() => gameStartHandler(player2)}>
+                            {player2}
+                        </div>
+                    </div>
+                </div>)}
+                {gameStart && (<div className="mx-auto md:w-3/4 lg:w-2/5 w-11/12">
                     <div className="grid grid-cols-3 w-full">
                         {boxes.map((value) => (
                             <Boxes
@@ -261,7 +298,7 @@ const Grid = (props) => {
                             />
                         ))}
                     </div>
-                </div>
+                </div>)}
 			</div>
 		</div>
 	);
